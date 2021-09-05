@@ -1,49 +1,38 @@
-// { Driver Code Starts
 #include <bits/stdc++.h> 
 using namespace std; 
 
  // } Driver Code Ends
-
 class Solution
 {   
     public: 
     //Function to return a list of integers denoting spiral traversal of matrix.
-    vector<int> spirallyTraverse(vector<vector<int> > matrix, int m, int n) 
+    vector<int> spirallyTraverse(vector<vector<int> > matrix, int r, int c) 
     {
-    vector <int> arr;
-    int i,k=0,l=0;
-    while(k<m && l<n)
+        vector<int> ans;
+        int top=0,bottom=r-1,left=0,right=c-1;
+        int i;
+    while(top<=bottom && left<=right)
     {
-        for(i=l;i<n;i++)
+        for(i=left;i<=right;i++)
+            ans.push_back(matrix[top][i]);
+        top++;
+        for(i=top;i<=bottom;i++)
+            ans.push_back(matrix[i][right]);
+        right--;
+        if(top<=bottom)
         {
-            arr.push_back(matrix[k][i]);
+            for(i=right;i>=left;i--)
+                ans.push_back(matrix[bottom][i]);
+            bottom--;
         }
-        k++;
-        
-        for(i=k;i<m;i++)
+        if(left<=right)
         {
-            arr.push_back(matrix[i][n-1]);
-        }
-        n--;
-        if(k<m)
-        {
-            for(i=n-1;i>=l;--i)
-            {
-                arr.push_back(matrix[m-1][i]);
-            }
-            m--;
-        }
-        if(l<n)
-        {
-            for(i=m-1;i>=k;--i)
-            {
-                arr.push_back(matrix[i][l]);
-            }
-            l++;
+            for(i=bottom;i>=top;i--)
+                ans.push_back(matrix[i][left]);
+            left++;
         }
     }
-    return arr;
-    
+    return ans;
     }
 };
 
@@ -74,4 +63,4 @@ int main() {
         cout<<endl;
     }
     return 0;
-} 
+}
